@@ -440,20 +440,20 @@ cout<<"oooooooooooooooooooooo//////////////////////////ooooooooooooooooooooooooo
 
    ShowClass ("Advanced Programming");
 cout<<"ooooooooooooooooooooooooooooooooooooooooooooooooooo"<<endl;
-   Datestudnt ("hasan hammad 2000/2/24 9622358001 12");
+   Datestudnt ("ahmad ibrahem 2000/2/24 9522358001 12");
 
    ShowClass ("Advanced Programmins");
     cout<<"ooooooooooooooooooooooooooooooooooooooooooooooooooo"<<endl;
 
 
-    Search(9622358001);
+    Search(9522358001);
      cout<<"ooooooooooooooooooooooooooooooooooooooooooooooooooo"<<endl;
 
 
-    Search("hasan" , "hammad");
+    Search("ahmad" , "ibrahem");
 
     cout<<"ooooooooooooooooooooooooooooooooooooooooooooooooooo"<<endl;
-   RemoveStudent(9622358001);
+   RemoveStudent(9522358001);
    ShowClass ("Logic_Circuits");
 
 cout<<"ooooooooooooooooooooooooooooooooooooooooooooooooooo"<<endl;
