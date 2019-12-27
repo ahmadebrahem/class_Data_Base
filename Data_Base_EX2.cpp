@@ -33,7 +33,7 @@ struct Class
 vector<Class> Database;
 Class c;
 
-void selectclass(string cls)
+void selectclass(string cls)//make the global object the used object 
 {
 	for (auto i : Database)
 		if (i.Classname == cls)
@@ -44,6 +44,7 @@ void selectclass(string cls)
 
 Student Add_Stuent(string _data)
 {
+	//spleit student data string to fname , lname , date , grade , id
 	string split_data[5];
 	int index = 0;
 	for (auto c : _data)
@@ -81,7 +82,7 @@ Student Add_Stuent(string _data)
 	return s;
 }
 
-void AddClass(string cls)///////////////////////////////
+void AddClass(string cls)// add class by class name
 {
 	Class y;
 
@@ -108,21 +109,20 @@ void AddClass(string cls)///////////////////////////////
 
 }
 
-void RemoveClass(string cls)/////////////////////////////
+void RemoveClass(string cls)// remove aclass frome Database
 {
 	int j = 0;
 	for (auto i : Database)
 	{
-		j++;
-
 		if (i.Classname == cls)
 		{
 			Database.erase(Database.begin() + j);   
 		}
+		j++;
 	}
 }
 
-void ShowClass(string Cname)
+void ShowClass(string Cname)// show a class information by class name
 {
 	bool ok = false;
 	for (auto i : Database)
@@ -136,13 +136,13 @@ void ShowClass(string Cname)
 
 			for (auto j : i.Data)
 			{
-				cout << j.Firstname << " ";
-				cout << j.Lastname << " ";
-				cout << j.birthday.year << "/";
-				cout << j.birthday.month << "/";
-				cout << j.birthday.day << " ";
-				cout << j.Grade << " ";
-				cout << j.ID << endl;
+				cout << left << setfill(' ') << setw(6) << j.Firstname;
+				cout << setw(8) << j.Lastname;
+				cout << setw(4) << j.birthday.year << "/";
+				cout << right << setfill('0') << setw(2) << j.birthday.month << "/";
+				cout << setw(2) << j.birthday.day << " ";
+				cout << setw(5) << j.Grade;
+				cout << setfill(' ') << setw(11) << j.ID << endl;
 			}
 			break;
 		}
@@ -153,7 +153,7 @@ void ShowClass(string Cname)
 	}
 }
 
-void ShowAll()
+void ShowAll()// show all classes' information
 {
 	for (auto i : Database)
 	{
@@ -174,7 +174,7 @@ void ShowAll()
 	}
 }
 
-void printc()
+void printc()// to show the selected class information
 {
 	bool ok = false;
 	for (auto i : Database)
@@ -184,17 +184,18 @@ void printc()
 			ok = true;
 
 			cout << i.Classname << endl;
-			cout << i.capacity << endl;
+			cout << i.Data.size() << endl;
 
 			for (auto j : i.Data)
 			{
-				cout << j.Firstname << " ";
-				cout << j.Lastname << " ";
-				cout << j.birthday.year << "/";
-				cout << j.birthday.month << "/";
-				cout << j.birthday.day << " ";
-				cout << j.Grade << " ";
-				cout << j.ID << endl;
+				cout << endl;
+				cout << left << setfill(' ') << setw(6) << j.Firstname;
+				cout <<setw(8)<< j.Lastname;
+				cout << setw(4) << j.birthday.year<<"/";
+				cout << right << setfill('0') << setw(2) << j.birthday.month << "/";
+				cout << setw(2) << j.birthday.day<<" ";
+				cout << setw(5) << j.Grade;
+				cout << setfill(' ') << setw(11) << j.ID << endl;
 
 			}
 			break;
@@ -206,7 +207,7 @@ void printc()
 	}
 }
 
-void AddStudent(string s, Date d, unsigned long long int u, float f)/////////////
+void AddStudent(string s, Date d,float f, unsigned long long int u )// to add a new student to a selected class
 {
 	string::size_type sz;     // alias of size_t
 
@@ -236,7 +237,7 @@ void AddStudent(string s, Date d, unsigned long long int u, float f)////////////
 	}
 }
 
-void Datestudnt(string line)
+void Datestudnt(string line) // convet student information string to rael information
 {
 	string split_data[5];
 	int index = 0;
@@ -266,14 +267,14 @@ void Datestudnt(string line)
 	d.month = stoul(date[1]);
 	d.day = stoul(date[2]);
 
-	unsigned long long int id = stoull(split_data[3], nullptr, 10);
-	float grade = stof(split_data[4], &sz);
+	float grade = stof(split_data[3], &sz);
+	unsigned long long int id = stoull(split_data[4], nullptr, 10);
 
-	AddStudent(fullname, d, id, grade);
+	AddStudent(fullname, d, grade, id);
 
 }
 
-void RemoveStudent(unsigned long long int id)
+void RemoveStudent(unsigned long long int id)// remove student from a selected class
 {
 	for (auto &j : Database)
 	{
@@ -282,11 +283,11 @@ void RemoveStudent(unsigned long long int id)
 		{
 			for (auto &i : j.Data)
 			{
-				k++;
 				if (i.ID == id)
 				{
 					j.Data.erase(j.Data.begin() + k);
 				}
+				k++;
 			}
 		}
 	}
@@ -298,11 +299,14 @@ void Search(unsigned long long int id)
 	{
 		if (i.ID == id)
 		{
-			cout << "Firstname " << i.Firstname << endl;
-			cout << "Lastname " << i.Lastname << endl;
-			cout << "birthday " << i.birthday.year << "/" << i.birthday.month << "/" << i.birthday.day << endl;
-			cout << "ID " << i.ID << endl;
-			cout << "Grade " << i.Grade << endl;
+			cout << endl;
+			cout << "Firstname : " << i.Firstname << endl;
+			cout << "Lastname  : " << i.Lastname << endl;
+			cout << "birthday  : " << i.birthday.year << "/";
+			cout << setfill('0') << setw(2) << i.birthday.month << "/";
+			cout << setw(2) << i.birthday.day << endl;
+			cout << "Grade     : " << setw(5) << i.Grade << endl;
+			cout << "ID        : " << setw(10) << i.ID << endl;
 		}
 	}
 }
@@ -313,11 +317,14 @@ void Search(string Fname, string Lname)
 	{
 		if (i.Firstname == Fname && i.Lastname == Lname)
 		{
-			cout << "Firstname " << i.Firstname << endl;
-			cout << "Lastname " << i.Lastname << endl;
-			cout << "birthday " << i.birthday.year << "/" << i.birthday.month << "/" << i.birthday.day << endl;
-			cout << "ID " << i.ID << endl;
-			cout << "Grade " << i.Grade << endl;
+			cout << endl;
+			cout << "Firstname : " << i.Firstname << endl;
+			cout << "Lastname  : " << i.Lastname << endl;
+			cout << "birthday  : " << i.birthday.year << "/";
+			cout << setfill('0') << setw(2) << i.birthday.month << "/";
+			cout << setw(2) << i.birthday.day << endl;
+			cout << "Grade     : " << setw(5) << i.Grade << endl;
+			cout << "ID        : " << setw(10) << i.ID << endl;
 		}
 	}
 }
@@ -427,7 +434,7 @@ string Filename(unsigned int str)
 	return sc;
 }
 
-void Save()
+void Save()// to save the change
 {
 	unsigned int counter = 1;
 	ofstream outf;
@@ -439,36 +446,93 @@ void Save()
 		outf << i.Data.size() << "\n";
 		for (auto j : i.Data)
 		{
-			outf << j.Firstname << " ";
-			outf << j.Lastname << " ";
-			outf << j.birthday.year << "/";
-			outf << j.birthday.month << "/";
-			outf << j.birthday.day << " ";
-			outf << j.Grade << " ";
-			outf << j.ID << "\n";
+			outf << left << setfill(' ') << setw(6) << j.Firstname;
+			outf << setw(8) << j.Lastname;
+			outf << setw(4) << j.birthday.year << "/";
+			outf << right << setfill('0') << setw(2) << j.birthday.month << "/";
+			outf << setw(2) << j.birthday.day << " ";
+			outf << setw(5) << j.Grade;
+			outf << setfill(' ') << setw(11) << j.ID << endl;
+
 		}
 		outf.close();
 		counter++;
 	}
 }
 
-void start()
+void Rank() // rate the students grade with A,B,C,D,E
+{
+	bool ok = false;
+	for (auto i : Database)
+	{
+		if (i.Classname == c.Classname)
+		{
+			ok = true;
+
+			cout << i.Classname << endl;
+			cout << i.capacity << endl;
+
+			for (auto j : i.Data)
+			{
+				cout << j.Firstname << " ";
+				cout << j.Lastname << " ";
+				
+				if (j.Grade >= 18 )
+				{
+					cout << " A" << endl;
+				}
+				else if (j.Grade >= 15 && j.Grade < 18)
+				{
+					cout << " B" << endl;
+				}
+				else if (j.Grade >= 12 && j.Grade < 15)
+				{
+					cout << " C" << endl;
+				}
+				else if (j.Grade >= 10 && j.Grade < 12)
+				{
+					cout << " D" << endl;
+				}
+				else if (j.Grade < 10)
+				{
+					cout << " E" << endl;
+				}
+			}
+			break;
+		}
+	}
+	if (ok == false)
+	{
+		cout << "====>> class name not found !!!!" << endl;
+	}
+
+}
+
+void Help()// the function that help you to enter the inputs
+{
+	string help = "Information about this programe :\n\n";
+	help += "* basu add class <File Name>      : For adding a new class frome a file.\n";
+	help += "* basu add student                : For adding student information to class.\n";
+	help += "* basu remove student <ID>        : To remove a student from class by student number.\n";
+	help += "* basu selsect class <Class Name> : To select a class.\n";
+	help += "* basu select none                : To select nothing.\n";
+	help += "* basu search <ID>                : To search for a student and show this student information by student number.\n";
+	help += "* basu search <Full Name>         : To search for a student and show this student information by student fullname.\n";
+	help += "* basu show                       : To show data.\n";
+	help += "* basu show <Class Name>          : To show class information.\n";
+	help += "* basu sort name                  : To sort the students by name.\n";
+	help += "* basu sort id                    : To sort the students by student number.\n";
+	help += "* basu save                       : To save the data.\n";
+	help += "* basu Rank                       : To rate the student's grade with A,B,C,D,E.\n";
+	help += "* basu exit                       : To exit the program.\n";
+
+	cout << help;
+}
+
+void start()// Start function ( the main function )
 {
 	Class basu;
-	string help = "Information about this programe :\n\n\n";
-	help += "* basu add class <File Name>      : For adding a new class frome a file.\n";
-	help += "* basu add student                : For adding student information to class.\n\n";
-	help += "* basu remove student <ID>        : To remove a student from class by student number.\n\n";
-	help += "* basu selsect class <Class Name> : To select a class.\n";
-	help += "* basu select none                : To select nothing.\n\n";
-	help += "* basu search <ID>                : To search for a student and show this student information by student number.\n";
-	help += "* basu search <Full Name>         : To search for a student and show this student information by student fullname.\n\n";
-	help += "* basu show                       : To show data.\n";
-	help += "* basu show <Class Name>          : To show class information.\n\n";
-	help += "* basu sort name                  : To sort the students by name.\n";
-	help += "* basu sort id                    : To sort the students by student number.\n\n";
-	help += "* basu save                       : To save the data.\n\n";
-	help += "* basu exit                       : To exit the program.\n\n";
+	
 	string line;
 	cout << "_>";
 	while (getline(cin, line)) // till you press exit
@@ -576,9 +640,14 @@ void start()
 			Save();
 		}
 
+		else if (y == "basurank")
+		{
+			Rank();
+		}
+
 		else if (y == "basuhelp")
 		{
-			cout << help;
+			Help();
 		}
 
 		else if (y == "exit")
@@ -588,6 +657,7 @@ void start()
 
 		cout << endl << "_>";
 	}
+//	cout << "\npress Exit to exit programm \n";
 }
 
 int main()
